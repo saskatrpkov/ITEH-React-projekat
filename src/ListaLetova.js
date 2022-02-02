@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import letovi from "./letovi";
 import LetKartica from "./LetKartica";
 import "./ListaLetova.css";
 
-function ListaLetova({ nadjiLetZaIzabranaPolja }) {
-  const polazak = [...new Set(letovi.map((let1) => let1.from))];
-  const odlazak = [...new Set(letovi.map((let1) => let1.to))];
-
-  const [pocetak, setPocetak] = useState("");
-  const [kraj, setKraj] = useState("");
+function ListaLetova({ nadjiLetZaIzabranaPolja, polazak, odlazak }) {
+  const [pocetak, setPocetak] = useState(polazak.length === 0 ? '' : polazak[0]);
+  const [kraj, setKraj] = useState(odlazak.length === 0 ? '' : odlazak[0]);
   const [letoviPoKriterijumu, setLetoviPoKriterijumu] = useState(null);
 
   useEffect(() => {
-    const podaci = nadjiLetZaIzabranaPolja(letovi, pocetak, kraj);
+    const podaci = nadjiLetZaIzabranaPolja(pocetak, kraj);
     setLetoviPoKriterijumu(podaci || null);
   }, [pocetak, kraj]);
 

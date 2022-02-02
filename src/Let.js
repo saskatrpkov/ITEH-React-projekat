@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useRouteMatch } from "react-router";
 import "./Let.css";
-import letovi from "./letovi";
+import Podatak from "./Podatak";
 
 function Let({ nadjiLetPoId }) {
   const match = useRouteMatch();
 
   const [zakazivanje, setZakazivanje] = useState("");
-
-  const podaci = nadjiLetPoId(letovi, match.params?.id);
+  const podaci = nadjiLetPoId(match.params?.id);
 
   return (
     <>
@@ -19,11 +18,11 @@ function Let({ nadjiLetPoId }) {
           src="https://thumbs.dreamstime.com/b/jet-plane-icon-jet-plane-icon-blue-white-background-120405606.jpg"
         />
         <div className="informacijeOLetu">
-          <div>Poletanje: {podaci.from}</div>
-          <div>Destinacija: {podaci.to}</div>
-          <div>Cena karte: {podaci.cena}e </div>
-          <div>Trajanje leta: {podaci.trajanje}</div>
-          <div>Polasci u toku nedelje: {podaci.polasci}</div>
+          <Podatak naziv='Poletanje' vrednost={podaci.from} />
+          <Podatak naziv='Destinacija' vrednost={podaci.to} />
+          <Podatak naziv='Cena karte' vrednost={podaci.cena} />
+          <Podatak naziv='Trajanje leta' vrednost={podaci.trajanje} />
+          <Podatak naziv='Polasci u toku nedelje' vrednost={podaci.polasci} />
         </div>
       </div>
       <div className="zakazivanje">
