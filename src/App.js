@@ -9,15 +9,15 @@ function App() {
     return letovi.find((let1) => let1.id == id);
   };
 
-  const nadjiLetZaIzabranaPolja = (from, to) => {
-    return letovi.find((let1) => let1.from == from && let1.to == to);
+  const nadjiLetoveZaIzabranaPolja = (from, to) => {
+    return letovi.filter((let1) => let1.from == from && (to == 0 || let1.to == to));
   };
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <ListaLetova polazak={[...new Set(letovi.map((let1) => let1.from))]} odlazak={[...new Set(letovi.map((let1) => let1.to))]} nadjiLetZaIzabranaPolja={nadjiLetZaIzabranaPolja} />
+          <ListaLetova polazak={[...new Set(letovi.map((let1) => let1.from))]} odlazak={[...new Set(letovi.map((let1) => let1.to))]} nadjiLetoveZaIzabranaPolja={nadjiLetoveZaIzabranaPolja} />
         </Route>
         <Route path="/:id">
           <Let nadjiLetPoId={nadjiLetPoId} />

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import LetKartica from "./LetKartica";
 import "./ListaLetova.css";
 
-function ListaLetova({ nadjiLetZaIzabranaPolja, polazak, odlazak }) {
+function ListaLetova({ nadjiLetoveZaIzabranaPolja, polazak, odlazak }) {
   const [pocetak, setPocetak] = useState(polazak.length === 0 ? '' : polazak[0]);
-  const [kraj, setKraj] = useState(odlazak.length === 0 ? '' : odlazak[0]);
-  const [letoviPoKriterijumu, setLetoviPoKriterijumu] = useState(null);
+  const [kraj, setKraj] = useState(0);
+  const [letoviPoKriterijumu, setLetoviPoKriterijumu] = useState([]);
 
   useEffect(() => {
-    const podaci = nadjiLetZaIzabranaPolja(pocetak, kraj);
-    setLetoviPoKriterijumu(podaci || null);
+    const podaci = nadjiLetoveZaIzabranaPolja(pocetak, kraj);
+    setLetoviPoKriterijumu(podaci);
   }, [pocetak, kraj]);
 
   return (
@@ -21,14 +21,19 @@ function ListaLetova({ nadjiLetZaIzabranaPolja, polazak, odlazak }) {
             <option value={item}>{item}</option>
           ))}
         </select>
-        <select value={kraj || null} onChange={(e) => setKraj(e.target.value)}>
+        <select value={kraj} onChange={(e) => setKraj(e.target.value)}>
+          <option value={0}>Izaberite destinaciju</option>
           {odlazak.map((item) => (
             <option value={item}>{item}</option>
           ))}
         </select>
 
-        {letoviPoKriterijumu && <LetKartica podaci={letoviPoKriterijumu} />}
-        {!letoviPoKriterijumu && <div className="nemaLetova">Za zadati kriterijum nema letova</div>}
+        {letoviPoKriterijumu.length > 0 && (
+          letoviPoKriterijumu.map(element => {
+            return <LetKartica podaci={element} />
+          })
+        )}
+        {letoviPoKriterijumu.length === 0 && <div className="nemaLetova">Za zadati kriterijum nema letova</div>}
       </div>
     </>
   );
