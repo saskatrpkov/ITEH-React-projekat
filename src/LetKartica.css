@@ -1,0 +1,9 @@
+.letKartica {
+    display: flex;
+    align-items: center;
+    border: 1px solid #c9c9c9;
+    cursor: pointer;
+    width: 70%;
+    margin: 30px;
+}
+

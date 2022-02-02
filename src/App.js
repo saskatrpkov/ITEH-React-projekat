@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ListaLetova from "./ListaLetova";
+import Let from "./Let";
 
 function App() {
+  const nadjiLetPoId = (letovi, id) => {
+    return letovi.find((let1) => let1.id == id);
+  };
+
+  const nadjiLetZaIzabranaPolja = (letovi, from, to) => {
+    return letovi.find((let1) => let1.from == from && let1.to == to);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <ListaLetova nadjiLetZaIzabranaPolja={nadjiLetZaIzabranaPolja} />
+        </Route>
+        <Route path="/:id">
+          <Let nadjiLetPoId={nadjiLetPoId} />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
